@@ -12,9 +12,9 @@ PRIV_KEY=$(wg genkey)
 
 cp /local/repository/config/client.conf /tmp/client.conf
 
-sed -i "s/PRIV_KEY/$PRIV_KEY/g" /tmp/client.conf
+sed -i "s%\PRIV_KEY%$PRIV_KEY%g" /tmp/client.conf
 sed -i "s/CLIENT_IP/$CLIENT_IP/g" /tmp/client.conf
-sed -i "s/GW_PUB_KEY/$GW_PUB_KEY/g" /tmp/client.conf
+sed -i "s%\GW_PUB_KEY%$GW_PUB_KEY%g" /tmp/client.conf
 sed -i "s/GW_IP/$GW_IP/g" /tmp/client.conf
 
 # Generate QR from temporary client config file

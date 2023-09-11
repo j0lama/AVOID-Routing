@@ -1,7 +1,11 @@
 #/bin/bash
 
+# Redirect output to log file
+exec >> /local/repository/deploy.log
+exec 2>&1
+
 if [ "$#" -ne 1 ]; then
-    echo "USAGE: $0 "
+    echo "USAGE: $0 <gw/home_gw>"
     exit 1
 fi
 
@@ -21,11 +25,11 @@ if [ $1 = "gw" ]; then
     fi
     PRIV_KEY=$(cat /local/repository/config/gw_priv)
     # Generate config file
-    sed -i "s/PRIV_KEY/$PRIV_KEY/g" /local/repository/config/avoid.conf
+    sed -i "s%\PRIV_KEY%$PRIV_KEY%g" /local/repository/config/avoid.conf
     sed -i "s/GW_INDEX/$GW_INDEX/g" /local/repository/config/avoid.conf
     sed -i "s/INTERNET_IFACE/$INTERNET_IFACE/g" /local/repository/config/avoid.conf
 elif [ $1 = "home_gw" ]; then
-    #
+    :
 else
   echo "Invalid option"
   exit 1
