@@ -25,3 +25,6 @@ cat /tmp/client.conf | qrencode -t ansiutf8
 printf "[Peer]\n" >> /local/repository/config/avoid.conf
 printf "PublicKey = %s\n" "$PUB_KEY" >> /local/repository/config/avoid.conf
 printf "AllowedIPs = %s\n\n" "$CLIENT_IP" >> /local/repository/config/avoid.conf
+
+# Reload interface
+sudo systemctl reload wg-quick@avoid

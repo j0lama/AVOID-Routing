@@ -28,6 +28,8 @@ if [ $1 = "gw" ]; then
     sed -i "s%\PRIV_KEY%$PRIV_KEY%g" /local/repository/config/avoid.conf
     sed -i "s/GW_INDEX/$GW_INDEX/g" /local/repository/config/avoid.conf
     sed -i "s/INTERNET_IFACE/$INTERNET_IFACE/g" /local/repository/config/avoid.conf
+    # Start VPN
+    sudo wg-quick up /local/repository/config/avoid.conf
 elif [ $1 = "home_gw" ]; then
     :
 else
