@@ -21,10 +21,6 @@ sed -i "s/GW_IP/$GW_IP/g" /tmp/client.conf
 # Generate QR from temporary client config file
 cat /tmp/client.conf | qrencode -t ansiutf8 
 
-# Add Peer entry to GW config file
-printf "[Peer]\n" >> /local/repository/config/avoid.conf
-printf "PublicKey = %s\n" "$PUB_KEY" >> /local/repository/config/avoid.conf
-printf "AllowedIPs = %s\n\n" "$CLIENT_IP" >> /local/repository/config/avoid.conf
-
-# Reload interface
-sudo systemctl reload wg-quick@avoid
+# Add peer to gateway
+sudo wg set avoid peer "$PUB_KEY" allowed-ips $CLIENT_IP/32
+sudo ip -4 route add $CLIENT_IP/32 dev avoid
